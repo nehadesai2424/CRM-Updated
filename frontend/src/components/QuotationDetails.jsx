@@ -89,15 +89,17 @@ function QuotationDetails() {
                 <tbody>
                   {rows.map((row, index) => (
                     <tr key={index}>
-                      <td>{index + 1}
-                        <td>
+                      <td className="text-center align-middle">
+                        <div>{index + 1}</div>
+                        <div className="mt-1">
                           <button
-                            className="text-danger fw-bold mb-2 "
-                            onClick={() => handleDeleteRow(index)} // 👈 Delete handler
+                            className="btn btn-sm btn-danger"
+                            onClick={() => handleDeleteRow(index)}
+                            disabled={rows.length === 1}
                           >
                             x
                           </button>
-                        </td>
+                        </div>
                       </td>
                       <td>
                         <input type="text" className="form-control mb-1" placeholder="Product" />
@@ -112,17 +114,10 @@ function QuotationDetails() {
                       <td>
                         <input type="number" className="form-control" value={row.total} readOnly />
                       </td>
-                      {/* <td>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDeleteRow(index)} // 👈 Delete handler
-                        >
-                          <i className="bi bi-trash"></i>
-                        </button>
-                      </td> */}
                     </tr>
                   ))}
                 </tbody>
+
 
               </table>
             </div>

@@ -13,77 +13,48 @@ function AmcContracts() {
                         </ol>
                     </nav>
                 </div>
-
+                {/* AMC List Table */}
                 <div className="container mt-4">
-                    <div className="card p-4 shadow">
-                        <form>
-                            {/* Row 1 */}
-                            <div className="row mb-3">
-                                <div className="col-md-6">
-                                    <label className="form-label fw-bold">Customer <span className="text-danger">*</span></label>
-                                    <select className="form-select" name="customer" required>
-                                        <option disabled selected>Select customer</option>
-                                        <option>Customer A</option>
-                                        <option>Customer B</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-6">
-                                    <label className="form-label fw-bold">AMC Date <span className="text-danger">*</span></label>
-                                    <input type="date" className="form-control" name="amcDate" required />
-                                </div>
-                            </div>
-
-                            {/* Row 2 */}
-                            <div className="row mb-3">
-                                <div className="col-md-4">
-                                    <label className="form-label fw-bold">Subtotal <span className="text-danger">*</span></label>
-                                    <div className="input-group">
-                                        <span className="input-group-text">₹</span>
-                                        <input type="number" className="form-control" name="subtotal" placeholder="0.00" required />
-                                    </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <label className="form-label fw-bold">Discount</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text">₹</span>
-                                        <input type="number" className="form-control" name="discount" placeholder="0.00" />
-                                    </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <label className="form-label fw-bold">Total</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text">₹</span>
-                                        <input type="text" className="form-control" name="total" placeholder="0.00" readOnly />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Row 3 */}
-                            <div className="row mb-3">
-                                <div className="col-md-6">
-                                    <label className="form-label fw-bold">GST Amount</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text">₹</span>
-                                        <input type="number" className="form-control" name="gstAmount" placeholder="0.00" />
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <label className="form-label fw-bold">Bill Amount</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text">₹</span>
-                                        <input type="text" className="form-control" name="billAmount" placeholder="0.00" readOnly />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Buttons */}
-                            <div className="d-flex justify-content-end">
-                                <button type="submit" className="btn btn-success me-2">Save</button>
-                                <button type="reset" className="btn btn-danger">Cancel</button>
-                            </div>
-                        </form>
+                    <div className="table-responsive">
+                        <table className="table table-bordered text-center align-middle shadow-sm">
+                            <thead className="table-secondary">
+                                <tr>
+                                    <th>No</th>
+                                    <th>AMC No</th>
+                                    <th>Customer Name</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {[
+                                    { startDate: "2025-08-01", endDate: "2026-07-31", customer: "Customer A", amcNo: "AMC001" },
+                                    { startDate: "2025-09-01", endDate: "2026-08-31", customer: "Customer B", amcNo: "AMC002" }
+                                ].map((a, index) => (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{a.amcNo}</td>
+                                        <td>{a.customer}</td>
+                                        <td>{a.startDate}</td>
+                                        <td>{a.endDate}</td>
+                                        <td>
+                                            <div className="d-flex flex-wrap justify-content-center gap-2">
+                                                <button className="btn btn-primary btn-sm">
+                                                    <i className="fa-solid fa-pencil"></i>
+                                                </button>
+                                                <button className="btn btn-danger btn-sm">
+                                                    <i className="fa-solid fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+
             </main>
 
         </>

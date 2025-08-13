@@ -1,6 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function AmcContractDetails() {
+    const [rows, setRows] = useState([
+        { product: '', description: '', total: '0' }
+    ]);
+
+    const handleAddRow = () => {
+        setRows([
+            ...rows,
+            { product: '', description: '', total: 0 }
+        ]);
+    };
+
+    const handleDeleteRow = (indexToDelete) => {
+        const updatedRows = rows.filter((_, i) => i !== indexToDelete);
+        setRows(updatedRows);
+    };
     return (
         <>
             <main id="main" className="main">
@@ -15,85 +30,180 @@ function AmcContractDetails() {
                 </div>
 
                 <div className="container mt-4">
-                    <div className="card p-4 shadow">
-                        <form>
-                            {/* Row 1: AMC ID, Sr No, Term */}
-                            <div className="row mb-3">
-                                <div className="col-md-4">
-                                    <label className="form-label fw-bold">Sr No <span className="text-danger">*</span></label>
-                                    <input type="text" className="form-control" name="srNo" placeholder="Enter serial number" required />
-                                </div>
-                                <div className="col-md-4">
-                                    <label className="form-label fw-bold">AMC ID <span className="text-danger">*</span></label>
-                                    <input type="text" className="form-control" name="amcId" placeholder="Enter AMC ID" required />
-                                </div>
+                    <div className="card p-4 shadow-lg border-0">
 
-                                <div className="col-md-4">
-                                    <label className="form-label fw-bold">Term <span className="text-danger">*</span></label>
-                                    <input type="text" className="form-control" name="term" placeholder="Enter term" required />
+                        {/* AMC Header */}
+                        <div className="row mb-4">
+                            <div className="col-md-4">
+                                <label className="form-label fw-bold">AMC Number <span className="text-danger">*</span></label>
+                                <input type="text" className="form-control shadow-sm" placeholder="Enter AMC Number" />
+                            </div>
+                            <div className="col-md-4">
+                                <label className="form-label fw-bold">Date <span className="text-danger">*</span></label>
+                                <input type="date" className="form-control shadow-sm" />
+                            </div>
+                            <div className="col-md-4">
+                                <label className="form-label fw-bold">Select Customer <span className="text-danger">*</span></label>
+                                <select className="form-select shadow-sm">
+                                    <option selected disabled>Customer Name</option>
+                                    <option>Customer A</option>
+                                    <option>Customer B</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="row mb-4">
+                            <div className="col-md-4">
+                                <label className="form-label fw-bold">From Date <span className="text-danger">*</span></label>
+                                <input type="date" className="form-control shadow-sm" />
+                            </div>
+                            <div className="col-md-4">
+                                <label className="form-label fw-bold">To Date <span className="text-danger">*</span></label>
+                                <input type="date" className="form-control shadow-sm" />
+                            </div>
+                            <div className="col-md-2">
+                                <label className="form-label fw-bold">Terms (Years)</label>
+                                <input type="text" className="form-control shadow-sm" placeholder='Years' />
+                            </div>
+                            <div className="col-md-2">
+                                <label className="form-label fw-bold">Terms (Months)</label>
+                                <input type="text" className="form-control shadow-sm" placeholder='Months' />
+                            </div>
+
+
+
+                        </div>
+
+                        {/* Product Table */}
+                        <div className="table-responsive">
+                            <table className="table table-bordered text-center align-middle">
+                                <thead className="table-secondary text-dark">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Product & Description</th>
+                                        <th>Total</th>
+                                        {/* <th>Action</th> */}
+                                    </tr>
+                                </thead>
+                                {/* <tbody>
+                  {rows.map((row, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>
+                        <input type="text" className="form-control mb-1" placeholder="Product" />
+                        <input type="text" className="form-control" placeholder="Description" />
+                      </td>
+                      <td>
+                        <input type="number" className="form-control" value={row.quantity} />
+                      </td>
+                      <td>
+                        <input type="number" className="form-control" value={row.rate}  />
+                      </td>
+                      <td>
+                        <input type="number" className="form-control" value={row.total} readOnly />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody> */}
+                                <tbody>
+                                    {rows.map((row, index) => (
+                                        <tr key={index}>
+                                            <td className="text-center">
+                                                <div>{index + 1}</div>
+                                                <div className="mt-2">
+                                                    <button
+                                                        className="btn btn-sm btn-danger"
+                                                        onClick={() => handleDeleteRow(index)}
+                                                        disabled={rows.length === 1}
+                                                    >
+                                                        x
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="text" className="form-control mb-1" placeholder="Product" />
+                                                <input type="text" className="form-control" placeholder="Description" />
+                                            </td>
+                                            <td>
+                                                <input type="number" className="form-control" value={row.total} readOnly />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+
+
+                            </table>
+                        </div>
+
+                        {/* Add Row Button */}
+                        <div className="mb-4 text-center">
+                            <button onClick={handleAddRow} className="btn btn-primary btn-sm px-4 shadow-sm">
+                                <i className="bi bi-plus me-1"></i>
+                                Add Row
+                            </button>
+                        </div>
+
+                        {/* Two Card Layout */}
+                        <div className="row">
+                            {/* Terms & Conditions */}
+                            <div className="col-md-6">
+                                <div className="border rounded p-3 h-100 bg-light">
+                                    <h6 className="fw-bold mb-3 text-center">Terms & Conditions</h6>
+                                    <hr />
+                                    <ol className="mb-0 ps-3 small text-dark fw-normal">
+                                        <li className="mb-2">Payment to be made within 7 days.</li>
+                                        <li className="mb-2">Warranty as per manufacturer.</li>
+                                        <li className="mb-2">Goods once sold will not be taken back.</li>
+                                        <li className="mb-2">Prices are exclusive of GST.</li>
+                                        <li className="mb-2">Delivery in 5–7 working days.</li>
+                                    </ol>
                                 </div>
                             </div>
 
-                            {/* Row 2: Description */}
-                            <div className="row mb-3">
-                                <div className="col-12">
-                                    <label className="form-label fw-bold">Description <span className="text-danger">*</span></label>
-                                    <textarea className="form-control" name="description" rows="3" placeholder="Enter description" required></textarea>
-                                </div>
-                            </div>
-
-                            {/* Row 3: Subtotal, Discount, Total */}
-                            <div className="row mb-3">
-                                <div className="col-md-4">
-                                    <label className="form-label fw-bold">Subtotal <span className="text-danger">*</span></label>
-                                    <div className="input-group">
-                                        <span className="input-group-text">₹</span>
-                                        <input type="number" className="form-control" name="subtotal" placeholder="0.00" required />
+                            {/* Quotation Summary */}
+                            <div className="col-md-6 mt-3 mt-md-0">
+                                <div className="border rounded p-3 h-100 bg-light d-flex flex-column justify-content-between">
+                                    <div>
+                                        <h6 className="fw-bold mb-3 text-center">Quotation Summary</h6>
+                                        <hr />
+                                        <div className="d-flex justify-content-between align-items-center mb-2">
+                                            <span>Subtotal:</span>
+                                            <span className="fw-semibold">₹ 600.00</span>
+                                        </div>
+                                        <div className="d-flex justify-content-between align-items-center mb-2">
+                                            <span>Discount:</span>
+                                            <div className="d-flex align-items-center w-50 justify-content-end">
+                                                <input type="number" className="form-control form-control-sm w-50 me-2" />
+                                                <span className="fw-semibold">₹ 200.00</span>
+                                            </div>
+                                        </div>
+                                        <div className="d-flex justify-content-between align-items-center mb-2">
+                                            <span>Total:</span>
+                                            <span className="fw-semibold">₹ 400.00</span>
+                                        </div>
+                                        <div className="d-flex justify-content-between align-items-center mb-2">
+                                            <span>GST (18%):</span>
+                                            <span className="fw-semibold">₹ 72.00</span>
+                                        </div>
+                                        <hr />
                                     </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <label className="form-label fw-bold">Discount</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text">₹</span>
-                                        <input type="number" className="form-control" name="discount" placeholder="0.00" />
-                                    </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <label className="form-label fw-bold">Total</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text">₹</span>
-                                        <input type="text" className="form-control" name="total" placeholder="0.00" readOnly />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Row 4: GST Amount, Bill Amount */}
-                            <div className="row mb-3">
-                                <div className="col-md-6">
-                                    <label className="form-label fw-bold">GST Amount</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text">₹</span>
-                                        <input type="number" className="form-control" name="gstAmount" placeholder="0.00" />
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <label className="form-label fw-bold">Bill Amount</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text">₹</span>
-                                        <input type="text" className="form-control" name="billAmount" placeholder="0.00" readOnly />
+                                    <div className="d-flex justify-content-between align-items-center fw-bold fs-5">
+                                        <span>Bill Amount:</span>
+                                        <span>₹ 472.00</span>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            {/* Buttons */}
+                        {/* Action Buttons */}
+                        <div className="text-end mt-4">
                             <div className="d-flex justify-content-end">
                                 <button type="submit" className="btn btn-success me-2">Save</button>
                                 <button type="reset" className="btn btn-danger">Cancel</button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-
 
 
 

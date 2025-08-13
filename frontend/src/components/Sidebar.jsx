@@ -151,6 +151,15 @@ function Sidebar() {
                         {/* <li class="nav-heading">Pages</li> */}
 
                         <li class="nav-item">
+                            <Link to="/quotation-details" class="nav-link collapsed" href="">
+                                {/* <i class="bi bi-person"></i> */}
+                                <i class="bi bi-file-earmark-text"></i>
+                                <span>Quotation Details</span>
+                            </Link>
+                        </li>
+                        {/* <!-- End Profile Page Nav --> */}
+
+                        <li class="nav-item">
                             <Link to="/quotations" class="nav-link collapsed" href="">
                                 {/* <i class="bi bi-person"></i> */}
                                 <i class="bi bi-file-earmark"></i>
@@ -159,11 +168,12 @@ function Sidebar() {
                         </li>
                         {/* <!-- End Profile Page Nav --> */}
 
+
                         <li class="nav-item">
-                            <Link to="/quotation-details" class="nav-link collapsed" href="">
+                            <Link to="/amc-contract-details" class="nav-link collapsed" href="">
                                 {/* <i class="bi bi-person"></i> */}
-                                <i class="bi bi-file-earmark-text"></i>
-                                <span>Quotation Details</span>
+                                <i class="bi bi-file-text"></i>
+                                <span>AMC Contract Details</span>
                             </Link>
                         </li>
                         {/* <!-- End Profile Page Nav --> */}
@@ -177,14 +187,6 @@ function Sidebar() {
                         </li>
                         {/* <!-- End Profile Page Nav --> */}
 
-                        <li class="nav-item">
-                            <Link to="/amc-contract-details" class="nav-link collapsed" href="">
-                                {/* <i class="bi bi-person"></i> */}
-                                <i class="bi bi-file-text"></i>
-                                <span>AMC Contract Details</span>
-                            </Link>
-                        </li>
-                        {/* <!-- End Profile Page Nav --> */}
                         {/* 
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="pages-faq.html">
