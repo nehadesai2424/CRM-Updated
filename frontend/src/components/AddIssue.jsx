@@ -1,7 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function AddIssue() {
+
+
+    // to navigate
+    const navigate = useNavigate();
 
     //to get customerData
     const [customer, setCustomer] = useState([]);
@@ -46,6 +51,7 @@ function AddIssue() {
             alert("Issue added successfully!");
             console.log(Issue);
             setIssue({ customerId: "", employeeId: "", issue: "", issueDate: "", closeDate: "", status: "" }); // Clear form
+            navigate("/issues"); // Redirect after alert
         } catch (error) {
             console.error("Error adding Customer:", error);
         }
