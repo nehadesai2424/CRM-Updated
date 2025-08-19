@@ -1,56 +1,63 @@
-const express = require('express');
-const QuotationDetail = require('../models/quotationDetailSchema'); // Adjust the path as needed
+const express = require("express");
+const QuotationDetail = require("../models/quotationDetailSchema");
+const Customer = require("../models/customerSchema"); // ✅ use require instead of import
+
 const router = express.Router();
 
-// POST: Create a new detail item for a quotation
+// 🔹 Create Quotation
 router.post("/", async (req, res) => {
     try {
-        const detail = await QuotationDetail.create(req.body);
-        res.json({ status: "success", data: detail });
+        const quotation = new QuotationDetail(req.body);
+        await quotation.save();
+        res.status(201).json({ message: "Quotation created successfully", quotation });
     } catch (err) {
-        res.json({ status: "error", data: err.message });
+        res.status(400).json({ error: err.message });
     }
 });
 
-// GET: All quotation details
+// 🔹 Get all Quotations
 router.get("/", async (req, res) => {
     try {
-        const details = await QuotationDetail.find().populate("quotationId");
-        res.json({ status: "success", data: details });
+        const quotations = await QuotationDetail.find().populate("customerId");
+        res.json(quotations);
     } catch (err) {
-        res.json({ status: "error", data: err.message });
+        res.status(500).json({ error: err.message });
     }
 });
 
-// GET: Single detail by its own _id
+// 🔹 Get single Quotation
 router.get("/:id", async (req, res) => {
     try {
-        const detail = await QuotationDetail.findById(req.params.id).populate("quotationId");
-        res.json({ status: "success", data: detail });
+        const quotation = await QuotationDetail.findById(req.params.id).populate("customerId");
+        if (!quotation) return res.status(404).json({ error: "Quotation not found" });
+        res.json(quotation);
     } catch (err) {
-        res.json({ status: "error", data: err.message });
+        res.status(500).json({ error: err.message });
     }
 });
 
-// PUT: Update a detail by its own _id
+// 🔹 Update Quotation
 router.put("/:id", async (req, res) => {
     try {
-        const updated = await QuotationDetail.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.json({ status: "success", data: updated });
+        const quotation = await QuotationDetail.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+        });
+        if (!quotation) return res.status(404).json({ error: "Quotation not found" });
+        res.json({ message: "Quotation updated successfully", quotation });
     } catch (err) {
-        res.json({ status: "error", data: err.message });
+        res.status(400).json({ error: err.message });
     }
 });
 
-// DELETE: Remove a detail by its own _id
+// 🔹 Delete Quotation
 router.delete("/:id", async (req, res) => {
     try {
-        const deleted = await QuotationDetail.findByIdAndDelete(req.params.id);
-        res.json({ status: "success", data: deleted });
+        const quotation = await QuotationDetail.findByIdAndDelete(req.params.id);
+        if (!quotation) return res.status(404).json({ error: "Quotation not found" });
+        res.json({ message: "Quotation deleted successfully" });
     } catch (err) {
-        res.json({ status: "error", data: err.message });
+        res.status(500).json({ error: err.message });
     }
 });
-
 
 module.exports = router;
