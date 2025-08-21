@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function Quotation() {
   const [showModal, setShowModal] = useState(false);
@@ -47,6 +48,41 @@ function Quotation() {
     // Show them again after printing
     buttons.forEach((btn) => (btn.style.display = ""));
   };
+
+  //To delete data
+  function handleDelete(id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(process.env.REACT_APP_BASEURL + "/quotationDetails/" + id)
+          .then((res) => {
+            console.log(res.data);
+            loadData(); // Refresh the data after deletion
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your item has been deleted.",
+              icon: "success"
+            });
+          })
+          .catch((error) => {
+            console.error("Error deleting item:", error);
+            Swal.fire({
+              title: "Error!",
+              text: "Something went wrong. Please try again later.",
+              icon: "error"
+            });
+          });
+      }
+    });
+  }
+
 
   return (
     <>
@@ -98,7 +134,7 @@ function Quotation() {
                             <button className="btn btn-primary btn-sm">
                               <i className="fa-solid fa-pencil"></i>
                             </button>
-                            <button className="btn btn-danger btn-sm">
+                            <button className="btn btn-danger btn-sm" onClick={() => handleDelete(q._id)}>
                               <i className="fa-solid fa-trash"></i>
                             </button>
                           </div>

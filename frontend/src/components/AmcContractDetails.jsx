@@ -137,9 +137,8 @@ function AmcContractDetails() {
 
                         {/* Add Row Button */}
                         <div className="mb-4 text-center">
-                            <button onClick={handleAddRow} className="btn btn-primary btn-sm px-4 shadow-sm">
-                                <i className="bi bi-plus me-1"></i>
-                                Add Row
+                            <button onClick={handleAddRow} className="btn btn-primary px-4 shadow-sm">
+                                <i class="fa-solid fa-plus"></i> Add Row
                             </button>
                         </div>
 

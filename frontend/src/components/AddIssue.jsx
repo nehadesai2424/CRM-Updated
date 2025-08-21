@@ -92,7 +92,7 @@ function AddIssue() {
                                         }
                                     </select>
                                 </div>
-                                <div class="col-md-6">
+                                {/* <div class="col-md-6">
                                     <label class="form-label fw-bold">Employee <span class="text-danger">*</span></label>
                                     <select value={issue.employeeId} onChange={handleChangeIssueData} class="form-select" name="employeeId" required>
                                         <option value="">Select Employee</option>
@@ -105,6 +105,25 @@ function AddIssue() {
                                                 )
                                             })
                                         }
+                                    </select>
+                                </div> */}
+                                  <div className="col-md-6">
+                                    <label className="form-label fw-bold">
+                                        Employee <span className="text-danger">*</span>
+                                    </label>
+                                    <select
+                                        value={issue.employeeId}
+                                        onChange={handleChangeIssueData}
+                                        className="form-select"
+                                        name="employeeId"
+                                        required
+                                    >
+                                        <option value="">Select Employee</option>
+                                        {employee.map((employee) => (
+                                            <option key={employee._id} value={employee._id}>
+                                                {employee.name} &nbsp; ({employee.position})
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>

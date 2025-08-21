@@ -1,7 +1,6 @@
 const express = require("express");
 const QuotationDetail = require("../models/quotationDetailSchema");
-const Customer = require("../models/customerSchema"); // ✅ use require instead of import
-
+const Customer = require("../models/customerSchema"); 
 const router = express.Router();
 
 // 🔹 Create Quotation
